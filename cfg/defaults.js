@@ -8,6 +8,7 @@
 
 const path = require('path');
 const srcPath = path.join(__dirname, '/../src');
+const nodeModulePath = path.join(__dirname, '/../node_modules');
 const dfltPort = 8000;
 
 /**
@@ -24,6 +25,11 @@ function getDefaultModules() {
       }
     ],
     loaders: [
+/*      {
+        test: /\.(js|jsx)$/,
+        exclude: nodeModulePath,
+        loader: 'react-hot!babel-loader'
+      },*/
       {
         test: /\.css$/,
         loader: 'style-loader!css-loader!autoprefixer-loader?{browsers:["last 2 version"]}'
@@ -60,5 +66,12 @@ module.exports = {
   srcPath: srcPath,
   publicPath: '/assets/',
   port: dfltPort,
+/*  postcss: function () {
+       return [
+         require('autoprefixer')({
+           browsers: ['last 2 versions', 'ie >= 8']
+         })
+       ];
+     },*/
   getDefaultModules: getDefaultModules
 };
