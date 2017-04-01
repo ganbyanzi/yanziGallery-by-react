@@ -36,6 +36,24 @@ imageDatas = (function genImageURL(imageDatasArr){
  function get30DegRandom(){
  	return ((Math.random() > 0.5 ? '' : '-') +Math.ceil(Math.random() * 30));
  }
+
+
+class controllerUnitCls extends React.Component {
+
+	handleClick(e) {
+		e.preventDefault();
+		e.stopPropagation();
+	};
+
+	render() {
+		return (
+			<span className="controller-unit" onClick={this.handleClick.bind(this)}>
+
+			</span>
+		);
+	};
+}
+
 //单个图片组件
 class ImgFigure extends React.Component{
 
@@ -43,22 +61,22 @@ class ImgFigure extends React.Component{
  * 取范围内的随机整数
  * @param  low,high
  */
- handleClick(e){
+	handleClick(e){
 
- 	if (this.props.arrange.isCenter) {
- 		this.props.inverse();	
- 	}else {
- 		this.props.center();
- 	}
- 	e.stopPropagation();
- 	e.preventDefault();
- };
+	 	if (this.props.arrange.isCenter) {
+	 		this.props.inverse();	
+	 	}else {
+	 		this.props.center();
+	 	}
+	 	e.stopPropagation();
+	 	e.preventDefault();
+	};
 
-  render(){
-  	var styleObj={};
-    //如果props属性中指定了这张图片的位置，则使用
-    if (this.props.arrange.pos) {
-      styleObj = this.props.arrange.pos;
+  	render() {
+  		var styleObj={};
+    	//如果props属性中指定了这张图片的位置，则使用
+    	if (this.props.arrange.pos) {
+      	styleObj = this.props.arrange.pos;
     }
 
     var imgFigureClassName = "photoimgfig";
@@ -105,9 +123,9 @@ class AppComponent extends React.Component {
         				left : '0',
         				top : '0'
         			},
-        			rotate: 0,    //xuanzhuangjiaodu
-        			isInverse: false, //tupianzhengfangmian,
-        			isCenter: false
+        			rotate: 0,    //旋转角度
+        			isInverse: false, //图片正反面,
+        			isCenter: false //图片是否处于中间
         		}*/
         	]};
         this.Constant= {
@@ -299,6 +317,8 @@ center(index){
 
 		imgFigures.push(<ImgFigure data={value} ref={'imgFigure'+index} 
 			arrange={this.state.imgsArrangeArr[index]} inverse={this.inverse(index)} center={this.center(index)}/>);
+
+		controllerUnits.push(<controllerUnitCls/>);
 	}.bind(this));
 
     return (
